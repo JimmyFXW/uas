@@ -78,7 +78,7 @@ public class LoginScreen extends JFrame implements ActionListener{
 			
 			String passwordInput = username.getText();
 			if(searchedUser.getUserPassword().equals(passwordInput)) {
-				new LihatDataPengguna().lihatDataPengguna();;
+				new LihatDataPengguna().lihatDataPengguna();
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Password salah, wrong etc!",

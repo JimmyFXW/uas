@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Vector;
 
 import database.DatabaseHandler;
 
@@ -17,7 +18,7 @@ public class User {
 	private int userFollowers;
 	
 	
-	private DatabaseHandler con = new DatabaseHandler();
+	private static DatabaseHandler con = new DatabaseHandler();
 	
 	public User() {
 		
@@ -32,7 +33,7 @@ public class User {
 		this.userFollowers = userFollowers;
 	}
 
-	private User map(ResultSet rs) {
+	private static User map(ResultSet rs) {
 		int userId;
 		String userName;
 		String userEmail;
@@ -55,7 +56,7 @@ public class User {
 			userCategoryName = rs.getString("categoryname");
 			userCategory = new CategoryUser(userCategoryId, userCategoryName);
 			
-			return new User(userId, userName, userEmail, userGender, userPassword,
+			return new User(userName, userEmail, userGender, userPassword,
 					userCategory, userFollowers);
 		} catch (Exception e) {
 			
@@ -99,6 +100,20 @@ public class User {
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}
+	}
+	
+	public static Vector<User> getAllUser() {
+		con.resultSet = con.execQuery("SELECT * FROM barang");
+		Vector<User> userVector = new Vector<>();
+		try {
+			while (con.resultSet.next()) {
+				User user = map(con.resultSet);
+				userVector.add(user);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return userVector;
 	}
 
 	public int getUserId() {

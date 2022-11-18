@@ -53,7 +53,7 @@ public class MainMenu extends JFrame implements ActionListener{
 			new RegistrasiScreen().registrasiScreen();
 		}
 		if(e.getSource() == lihatData) {
-			
+			new LihatDataPengguna().lihatDataPengguna();
 		}
 	}
 }

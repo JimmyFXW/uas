@@ -105,12 +105,12 @@ public class RegistrasiScreen extends JFrame implements ActionListener{
 		
 		String[] categories = {"Private Account","Creator Account","Business Account"};    
 		UserCategory = new JComboBox(categories);
-		UserCategory.setBounds(150, 200, 100, 20);
+		UserCategory.setBounds(150, 200, 150, 20);
 		UserCategory.addActionListener(this);
 		contentPane.add(UserCategory);
 		
 		registrasi = new JButton("Registrasi");
-		registrasi.setBounds(170, 225, 70, 20);
+		registrasi.setBounds(170, 225, 100, 20);
 		registrasi.addActionListener(this);
 		contentPane.add(registrasi);
 		
@@ -130,9 +130,21 @@ public class RegistrasiScreen extends JFrame implements ActionListener{
 					      "Hey!", JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				//(int userId, String userName, String userEmail, String userGender, String userPassword,
-				//CategoryUser userCategory, int userFollowers)
-				User user = new User(username.getText(), String.valueOf(password.getPassword()), );
+//				(String userName, String userEmail, String userGender, String userPassword,
+//						CategoryUser userCategory, int userFollowers)
+				int id = 0;
+				if(UserCategory.getSelectedItem().toString() == "Private Account") {
+					id = 1;
+				}
+				else if(UserCategory.getSelectedItem().toString() == "Creator Account") {
+					id = 2;
+				}
+				else if(UserCategory.getSelectedItem().toString() == "Business Account") {
+					id = 3;
+				}
+				CategoryUser userCategoryy = new CategoryUser(id, UserCategory.getSelectedItem().toString());
+				User user = new User(username.getText(), email.getText(), getRadioValue(kelamin), String.valueOf(password.getPassword()), userCategoryy, 12);
+				user.insertUserDetails(user);
 			}
 		}
 		else if(e.getSource() == back) {
